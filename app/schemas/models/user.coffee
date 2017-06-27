@@ -379,9 +379,9 @@ _.extend UserSchema.properties,
   lastAnnouncementSeen:
     type: 'number'
     description: 'The highed announcement modal index displayed to the user.'
-  intercomTriggers:
+  studentMilestones:
     type: 'object'
-    description: 'Flags for whether certain intercom triggers have been activated'
+    description: "Flags for whether a teacher's students have reached a given level. Used for Intercom campaigns."
     properties: {
       studentStartedWakkaMaul: { type: 'boolean', description: "One of a teacher's students has reached Wakka Maul" }
       studentStartedMayhemOfMunchkins: { type: 'boolean', description: "One of a teacher's students has started A Mayhem of Munchkins" }

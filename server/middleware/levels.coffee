@@ -138,7 +138,7 @@ module.exports =
 reportLevelStarted = co.wrap ({teacher, level}) ->
   intercom = require('../lib/intercom')
   if level.get('slug') is 'wakka-maul'
-    yield teacher.update({ $set: { "intercomTriggers.studentStartedWakkaMaul": true } })
+    yield teacher.update({ $set: { "studentMilestones.studentStartedWakkaMaul": true } })
     update = {
       user_id: teacher.get('_id') + '',
       email: teacher.get('email'),
@@ -146,7 +146,7 @@ reportLevelStarted = co.wrap ({teacher, level}) ->
         studentStartedWakkaMaul: true
     }
   if level.get('slug') is 'a-mayhem-of-munchkins'
-    yield teacher.update({ $set: { "intercomTriggers.studentStartedMayhemOfMunchkins": true } })
+    yield teacher.update({ $set: { "studentMilestones.studentStartedMayhemOfMunchkins": true } })
     update = {
       user_id: teacher.get('_id') + '',
       email: teacher.get('email'),
