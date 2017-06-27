@@ -76,10 +76,6 @@ Application = {
     $(document).bind 'keydown', preventBackspace
     preload(COMMON_FILES)
     CocoModel.pollAchievements()
-    if me.isTeacher() and @isProduction() and not @testing
-      setInterval =>
-        window.tracker.identify() unless @userIsIdle
-      , 5*60*1000
     unless me.get('anonymous')
       # TODO: Remove logging later, once this system has proved stable
       me.on 'change:earned', (user, newEarned) ->

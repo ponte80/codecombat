@@ -18,6 +18,8 @@ module.exports = class Tracker extends CocoClass
     @supermodel = new SuperModel()
     @identify() # Needs supermodel to exist first
     @updateRole() if me.get 'role'
+    if me.isTeacher() and @isProduction and not application.testing
+      @updateIntercomRegularly()
 
   enableInspectletJS: (levelSlug) ->
     # InspectletJS loading is delayed and targeting specific levels for more focused investigations
@@ -216,6 +218,18 @@ module.exports = class Tracker extends CocoClass
     console.log 'Would track timing event:', arguments if debugAnalytics
     return unless me and @isProduction and not me.isAdmin()
     ga? 'send', 'timing', category, variable, duration, label
+
+  updateIntercomRegularly: ->
+    timesChecked = 0
+    updateIntercom = =>
+      # Check for new Intercom messages!
+      # Intercom only allows 10 updates for free per page refresh; then 1 per 30min
+      # https://developers.intercom.com/docs/intercom-javascript#section-intercomupdate
+      window.Intercom?('update')
+      timesChecked += 1
+      timeUntilNext = (if timesChecked < 10 then 5*60*1000 else 30*60*1000)
+      setTimeout(updateIntercom, timeUntilNext)
+    setTimeout(updateIntercom, 5*60*1000)
 
   updateRole: ->
     return if me.isAdmin()
