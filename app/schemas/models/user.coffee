@@ -384,7 +384,7 @@ _.extend UserSchema.properties,
     description: 'Flags for whether certain intercom triggers have been activated'
     properties: {
       studentStartedWakkaMaul: { type: 'boolean', description: "One of a teacher's students has reached Wakka Maul" }
-      studentFinishedMasterOfNames: { type: 'boolean', description: "One of a teacher's students has finished Master of Names" }
+      studentStartedMayhemOfMunchkins: { type: 'boolean', description: "One of a teacher's students has started A Mayhem of Munchkins" }
     }
 
 c.extendBasicProperties UserSchema, 'user'

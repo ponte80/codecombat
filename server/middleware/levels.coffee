@@ -145,13 +145,13 @@ reportLevelStarted = co.wrap ({teacher, level}) ->
       custom_attributes:
         studentStartedWakkaMaul: true
     }
-  if level.get('slug') is 'a-mayhem-of-munchkins' # the level after master of names
-    yield teacher.update({ $set: { "intercomTriggers.studentFinishedMasterOfNames": true } })
+  if level.get('slug') is 'a-mayhem-of-munchkins'
+    yield teacher.update({ $set: { "intercomTriggers.studentStartedMayhemOfMunchkins": true } })
     update = {
       user_id: teacher.get('_id') + '',
       email: teacher.get('email'),
       custom_attributes:
-        studentFinishedMasterOfNames: true
+        studentStartedMayhemOfMunchkins: true
     }
   if update
     tries = 0
