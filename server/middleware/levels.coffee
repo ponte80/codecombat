@@ -162,4 +162,4 @@ reportLevelStarted = co.wrap ({teacher, level}) ->
         break
       catch e
         console.log "couldn't update intercom", e
-        yield new Promise (accept, reject) -> setTimeout(accept, 5000)
+        yield new Promise (accept, reject) -> setTimeout(accept, 1000)
