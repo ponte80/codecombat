@@ -1,5 +1,6 @@
 mongoose = require 'mongoose'
 wrap = require 'co-express'
+co = require 'co'
 errors = require '../commons/errors'
 Level = require '../models/Level'
 LevelSession = require '../models/LevelSession'
@@ -7,6 +8,7 @@ Prepaid = require '../models/Prepaid'
 CourseInstance = require '../models/CourseInstance'
 Classroom = require '../models/Classroom'
 Course = require '../models/Course'
+User = require '../models/User'
 database = require '../commons/database'
 codePlay = require '../../app/lib/code-play'
 
@@ -126,5 +128,38 @@ module.exports =
 
     attrs.isForClassroom = course?
     session = new LevelSession(attrs)
+    if classroom # Potentialy set intercom trigger flag on teacher
+      teacher = yield User.findOne({ _id: classroom.get('ownerID') })
+      reportLevelStarted({teacher, level})
     yield session.save()
     res.status(201).send(session.toObject({req: req}))
+
+# Notes on the teacher object that the relevant intercom trigger should be activated.
+reportLevelStarted = co.wrap ({teacher, level}) ->
+  intercom = require('../lib/intercom')
+  if level.get('slug') is 'wakka-maul'
+    yield teacher.update({ $set: { "intercomTriggers.studentStartedWakkaMaul": true } })
+    update = {
+      user_id: teacher.get('_id') + '',
+      email: teacher.get('email'),
+      custom_attributes:
+        studentStartedWakkaMaul: true
+    }
+  if level.get('slug') is 'a-mayhem-of-munchkins' # the level after master of names
+    yield teacher.update({ $set: { "intercomTriggers.studentFinishedMasterOfNames": true } })
+    update = {
+      user_id: teacher.get('_id') + '',
+      email: teacher.get('email'),
+      custom_attributes:
+        studentFinishedMasterOfNames: true
+    }
+  if update
+    tries = 0
+    while tries < 100
+      tries += 1
+      try
+        console.log yield intercom.users.create update
+        break
+      catch e
+        console.log "couldn't update intercom", e
+        yield new Promise (accept, reject) -> setTimeout(accept, 5000)

@@ -379,6 +379,13 @@ _.extend UserSchema.properties,
   lastAnnouncementSeen:
     type: 'number'
     description: 'The highed announcement modal index displayed to the user.'
+  intercomTriggers:
+    type: 'object'
+    description: 'Flags for whether certain intercom triggers have been activated'
+    properties: {
+      studentStartedWakkaMaul: { type: 'boolean', description: "One of a teacher's students has reached Wakka Maul" }
+      studentFinishedMasterOfNames: { type: 'boolean', description: "One of a teacher's students has finished Master of Names" }
+    }
 
 c.extendBasicProperties UserSchema, 'user'
 
