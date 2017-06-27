@@ -128,7 +128,7 @@ module.exports =
 
     attrs.isForClassroom = course?
     session = new LevelSession(attrs)
-    if classroom # Potentialy set intercom trigger flag on teacher
+    if classroom # Potentially set intercom trigger flag on teacher
       teacher = yield User.findOne({ _id: classroom.get('ownerID') })
       reportLevelStarted({teacher, level})
     yield session.save()
