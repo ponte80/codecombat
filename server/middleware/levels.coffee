@@ -11,6 +11,7 @@ Course = require '../models/Course'
 User = require '../models/User'
 database = require '../commons/database'
 codePlay = require '../../app/lib/code-play'
+log = require 'winston'
 
 module.exports =
   upsertSession: wrap (req, res) ->
@@ -158,8 +159,8 @@ reportLevelStarted = co.wrap ({teacher, level}) ->
     while tries < 100
       tries += 1
       try
-        console.log yield intercom.users.create update
-        break
+        yield intercom.users.create update
+        return
       catch e
-        console.log "couldn't update intercom", e
         yield new Promise (accept, reject) -> setTimeout(accept, 1000)
+    log.error "Couldn't update intercom for user #{teacher.get('email')} in 100 tries"
