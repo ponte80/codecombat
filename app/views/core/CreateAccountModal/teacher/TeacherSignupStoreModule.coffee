@@ -8,26 +8,26 @@ module.exports = TeacherSignupStoreModule = {
   namespaced: true
   state: {
     trialRequestProperties: _.assign(ncesData, {
-      organization: 'Foo'
-      district: 'blah'
-      city: 'Cronville'
-      state: 'NJ'
-      country: 'USA'
-      phoneNumber: '555-555-5555'
-      role: 'Parent'
-      purchaserRole: 'No role in purchase decisions'
-      numStudents: '1-10'
-      numStudentsTotal: '1-500'
+      organization: ''
+      district: ''
+      city: ''
+      state: ''
+      country: ''
+      phoneNumber: ''
+      role: ''
+      purchaserRole: ''
+      numStudents: ''
+      numStudentsTotal: ''
       notes: ''
       referrer: ''
       marketingReferrer: ''
-      educationLevel: ["Elementary"]
+      educationLevel: []
       otherEducationLevel: false
       otherEducationLevelExplanation: ''
       siteOrigin: 'create teacher'
-      firstName: 'Cat'
-      lastName: 'FakeTeacher'
-      email: 'cat+fake@codecombat.com'
+      firstName: ''
+      lastName: ''
+      email: ''
     })
     signupForm: {
       name: ''
