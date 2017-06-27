@@ -249,11 +249,11 @@ module.exports = class CreateTeacherAccountView extends RootView
       return jqxhr
 
     .then =>
-      trialRequestIntercomData = _.pick trialRequest.attributes.properties, ["siteOrigin", "marketingReferrer", "referrer", "notes", "numStudentsTotal", "numStudents", "purchaserRole", "role", "phoneNumber", "country", "state", "city", "district", "organization", "nces_students", "nces_name", "nces_id", "nces_phone", "nces_district_students", "nces_district_schools", "nces_district_id", "nces_district"]
-      trialRequestIntercomData.educationLevel_elementary = _.contains trialRequest.attributes.properties.educationLevel, "Elementary"
-      trialRequestIntercomData.educationLevel_middle = _.contains trialRequest.attributes.properties.educationLevel, "Middle"
-      trialRequestIntercomData.educationLevel_high = _.contains trialRequest.attributes.properties.educationLevel, "High"
-      trialRequestIntercomData.educationLevel_college = _.contains trialRequest.attributes.properties.educationLevel, "College+"
+      trialRequestIntercomData = _.pick @trialRequest.attributes.properties, ["siteOrigin", "marketingReferrer", "referrer", "notes", "numStudentsTotal", "numStudents", "purchaserRole", "role", "phoneNumber", "country", "state", "city", "district", "organization", "nces_students", "nces_name", "nces_id", "nces_phone", "nces_district_students", "nces_district_schools", "nces_district_id", "nces_district"]
+      trialRequestIntercomData.educationLevel_elementary = _.contains @trialRequest.attributes.properties.educationLevel, "Elementary"
+      trialRequestIntercomData.educationLevel_middle = _.contains @trialRequest.attributes.properties.educationLevel, "Middle"
+      trialRequestIntercomData.educationLevel_high = _.contains @trialRequest.attributes.properties.educationLevel, "High"
+      trialRequestIntercomData.educationLevel_college = _.contains @trialRequest.attributes.properties.educationLevel, "College+"
       application.tracker.updateTrialRequestData trialRequestIntercomData
       
     .then =>
